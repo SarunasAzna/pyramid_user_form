@@ -16,8 +16,8 @@ PartnerCategory = Table(
 class Partner(Base):
     __tablename__ = 'partner'
     id = Column(Integer, primary_key=True)
-    name = Column(String)
-    email = Column(String)
+    name = Column(String, nullable=False)
+    email = Column(String, nullable=False, unique=True)
     category_ids = relationship('Category', secondary=PartnerCategory,
                                 backref='Partner')
 
@@ -25,10 +25,6 @@ class Partner(Base):
 class Category(Base):
     __tablename__ = 'category'
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String, nullable=False, unique=True)
     partner_ids = relationship('Partner', secondary=PartnerCategory,
                                backref='Category')
-
-
-
-#Index('my_index', MyModel.name, unique=True, mysql_length=255)
