@@ -28,8 +28,12 @@ Expected output:
 pip install -e app
 
 ```
-5. Run dev server.
+5. Initialize database.
 ```
 cd app
+../venv/bin/initialize_app_db development.ini
+```
+6. Run dev server.
+```
 ../venv/bin/pserve development.ini
 ```
