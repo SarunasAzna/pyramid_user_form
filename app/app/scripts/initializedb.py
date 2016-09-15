@@ -15,7 +15,7 @@ from ..models import (
     get_session_factory,
     get_tm_session,
     )
-from ..models import Partner, Category
+from ..models import Category
 
 
 def usage(argv):
@@ -38,8 +38,9 @@ def main(argv=sys.argv):
 
     session_factory = get_session_factory(engine)
 
-    #with transaction.manager:
-    #    dbsession = get_tm_session(session_factory, transaction.manager)
+    with transaction.manager:
+        dbsession = get_tm_session(session_factory, transaction.manager)
 
-    #    model = MyModel(name='one', value=1)
-    #    dbsession.add(model)
+        for n in ['First', 'Second', 'Third']:
+            model = Category(name=n)
+            dbsession.add(model)
