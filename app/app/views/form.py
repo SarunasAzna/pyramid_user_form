@@ -10,13 +10,23 @@ def form_view(request):
 
 
 @view_config(route_name='signup',
-             renderer='templates/index.jinja2',
+             renderer='templates/OK.jinja2',
              request_method='POST')
 def signup(request):
+    categ_names = []
+    data = request.POST
+    for k, v in data.iteritems():
+        if k == 'category_ids':
+            categ_names.append(v)
+    categs = request.dbsession.query(Category).filter(
+        Category.name.in_(categ_names)
+    ).all()
     partner = Partner(
-        name=request.POST.get('name'),
-        email=request.POST.get('email'),
+        name=data.get('name'),
+        email=data.get('email'),
+        category_ids=categs
     )
 
     with transaction.manager:
         request.dbsession.add(partner)
+    return {}
