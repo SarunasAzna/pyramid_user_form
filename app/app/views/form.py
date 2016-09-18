@@ -9,6 +9,11 @@ def form_view(request):
     return {'a': querry}
 
 
+@view_config(route_name='review', request_method="GET", renderer='templates/list.jinja2')
+def list_view(request):
+    querry = request.dbsession.query(Partner).all()
+    return {'records': querry}
+
 @view_config(route_name='signup',
              renderer='templates/OK.jinja2',
              request_method='POST')
