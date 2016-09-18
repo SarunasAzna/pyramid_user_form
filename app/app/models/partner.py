@@ -17,7 +17,7 @@ class Partner(Base):
     __tablename__ = 'partner'
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    email = Column(String, nullable=False, unique=True)
+    email = Column(String, nullable=False)
     category_ids = relationship('Category', secondary=PartnerCategory,
                                 backref='Partner')
 
